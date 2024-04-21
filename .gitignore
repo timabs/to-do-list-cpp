@@ -32,3 +32,9 @@
 #etc
 *.vsidx
 *.opendb
+
+Debug/
+Release/
+*.user
+*.suo
+.vs/
