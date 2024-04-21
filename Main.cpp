@@ -10,13 +10,21 @@ public:
 	std::string GetContent() {
 		return m_Content;
 	}
+	std::string SetContent(const std::string& newContent) {
+		m_Content = newContent;
+	}
 };
 
+void GreetUser() {
+	std::string name;
+	std::cout << "Welcome! Enter your name: " << std::endl;
+	std::cin >> name;
+	std::cout << "Hi, " << name << ", welcome to your to-do list!" << std::endl;
+	std::cout << "What do you want to do?" << std::endl;
+}
 
 int main()
 {
-	Task task1 = Task("bing bong");
-	std::cout << "Hello World" << std::endl;
-	std::cout << task1.GetContent() << std::endl;
+	GreetUser();
 	return 0;
 }
