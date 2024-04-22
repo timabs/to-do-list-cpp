@@ -1,5 +1,10 @@
 #include <iostream>
 #include <string>
+#include "json.hpp"
+#include <fstream>
+#include <iostream>
+
+using Json = nlohmann::json;
 
 class Task {
 private:
@@ -7,12 +12,23 @@ private:
 public:
 	Task(const std::string& content) :
 		m_Content(content) {}
-	std::string GetContent() {
+	std::string GetContent() const {
 		return m_Content;
 	}
-	std::string SetContent(const std::string& newContent) {
+	void SetContent(const std::string& newContent) {
 		m_Content = newContent;
 	}
+	Json ToJson() const {
+		Json j;
+		j["m_Content"] = m_Content;
+		return j;
+	}
+	static Task FromJson(const Json& j)
+	{
+		std::string content = j.at("m_Content").get<std::string>();
+		return Task(content);
+	}
+
 };
 
 void GreetUser() {
