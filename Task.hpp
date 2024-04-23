@@ -20,5 +20,5 @@ Task AddTask();
 void DeleteTask();
 void EditTask();
 void MarkAsCompleted();
-void QuitApplication();
+void QuitApplication(bool& appExited);
 #endif // TASK_HPP

@@ -77,4 +77,7 @@ void EditTask()
 	
 };
 void MarkAsCompleted() {};
-void QuitApplication() {};
+void QuitApplication(bool& appExited) 
+{
+	appExited = true;
+};
