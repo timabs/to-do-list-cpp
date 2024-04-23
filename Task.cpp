@@ -94,7 +94,37 @@ void LoadFromJson(std::vector<Task>& tasks, const std::string& filename)
 
 bool AreYouSure()
 {
+	char c;
+	while (true)
+	{
+		std::cout << "Are you sure? Y/N" << std::endl;
+		GetSingleInput(c);
+		switch (c)
+		{
+		case 'Y':
+			return true;
+		case 'N':
+			return false;
+		default:
+			std::cout << "Invalid input. Please enter Y or N." << std::endl;
+			continue;
+		}
+	}
+	
+}
 
+
+void DisplayTasks(const std::vector<Task>& tasks)
+{
+	std::cout << "Your tasks:" << std::endl;
+	std::cout << "---------------------" << std::endl;
+	for (int i = 0; i < tasks.size(); i++)
+	{
+		std::string formattedTask = std::to_string(i + 1) + ". " + tasks[i].GetContent();
+		std::cout << formattedTask << std::endl;
+	}
+	std::cout << "---------------------" << std::endl;
+	std::cout << "" << std::endl;
 }
 
 Task AddTask()
@@ -130,7 +160,12 @@ void DeleteTask(std::vector<Task>& tasks)
 	std::string s;
 	int selectionNum = PromptForNumAndReturn(s);
 	std::cout << "To Delete: " << tasks[selectionNum].GetContent() << std::endl;
-	std::cout << "Are you sure? Y/N" << std::endl;
+	bool sure = AreYouSure();
+	if (sure)
+	{
+		tasks.erase(tasks.begin() + selectionNum);
+	}
+	
 }
 void EditTask(std::vector<Task>& tasks)
 {
