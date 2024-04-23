@@ -4,18 +4,6 @@
 
 
 
- void DisplayTasks(const std::vector<Task>& tasks)
-{
-	std::cout << "Your tasks:" << std::endl;
-	std::cout << "---------------------" << std::endl;
-	for (int i=0; i < tasks.size(); i ++)
-	{
-		std::string formattedTask = std::to_string(i + 1) + ". " + tasks[i].GetContent();
-		std::cout << formattedTask << std::endl;
-	}
-	std::cout << "---------------------" << std::endl;
-	std::cout << "" << std::endl;
-}
 
 
  void PresentOptionsAndTakeInput(std::vector<Task>& tasks, bool& appExited)
@@ -25,7 +13,7 @@
 	std::cout << "a. Add a task" << std::endl;
 	std::cout << "b. Remove a task" << std::endl;
 	std::cout << "c. Edit a task" << std::endl;
-	std::cout << "d. Mark a task as completed" << std::endl;
+	std::cout << "d. Show tasks" << std::endl;
 	std::cout << "e. Exit" << std::endl;
 	char i;
 	GetSingleInput(i);
@@ -45,7 +33,7 @@
 			EditTask(tasks);
 			break;
 		case 'd':
-			MarkAsCompleted();
+			DisplayTasks(tasks);
 			break;
 		case 'e':
 			QuitApplication(appExited, tasks);

@@ -22,6 +22,7 @@ void GetSingleInput(char& i);
 void SaveToJson(const std::vector<Task>& tasks, const std::string& filename);
 void LoadFromJson(std::vector<Task>& tasks, const std::string& filename);
 bool AreYouSure();
+void DisplayTasks(const std::vector<Task>& tasks);
 Task AddTask();
 void DeleteTask(std::vector<Task>& tasks);
 void EditTask(std::vector<Task>& tasks);

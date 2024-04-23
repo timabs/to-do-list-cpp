@@ -135,7 +135,7 @@ Task AddTask()
 	return Task(taskContent);
 }
 
-int PromptForNumAndReturn(std::string& s)
+static int PromptForNumAndReturn(std::string& s)
 {
 	int selectionNum;
 	std::cout << "Which one?" << std::endl;
@@ -149,10 +149,12 @@ int PromptForNumAndReturn(std::string& s)
 	catch (const std::invalid_argument& e)
 	{
 		std::cout << "Invalid arg: " << e.what() << std::endl;
+		return -1;
 	}
 	catch (const std::out_of_range& e)
 	{
 		std::cout << "Out of range: " << e.what() << std::endl;
+		return -1;
 	}
 }
 void DeleteTask(std::vector<Task>& tasks)
@@ -164,6 +166,7 @@ void DeleteTask(std::vector<Task>& tasks)
 	if (sure)
 	{
 		tasks.erase(tasks.begin() + selectionNum);
+		DisplayTasks(tasks);
 	}
 	
 }
