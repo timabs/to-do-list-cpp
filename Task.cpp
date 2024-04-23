@@ -1,14 +1,28 @@
 #include "Task.hpp"
 #include <fstream>
 #include <iostream>
-
+#include <random>
 using Json = nlohmann::json;
 
-Task::Task(const std::string& content) : m_Content(content) {}
+Task::Task(const std::string& content, uint32_t _id) : m_Content(content) 
+{
 
+	id = _id;
+}
+Task::Task(const std::string& content) : m_Content(content)
+{
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<uint32_t> dist(0, 4294967295);
+	id = dist(gen);
+}
 std::string Task::GetContent() const
 {
 	return m_Content;
+}
+uint32_t Task::GetId() const
+{
+	return id;
 }
 
 void Task::SetContent(const std::string& newContent)
@@ -19,13 +33,15 @@ void Task::SetContent(const std::string& newContent)
 nlohmann::json Task::ToJson() const {
 	nlohmann::json j;
 	j["m_Content"] = m_Content;
+	j["id"] = id;
 	return j;
 }
 
 Task Task::FromJson(const nlohmann::json& j)
 {
 	std::string content = j.at("m_Content").get<std::string>();
-	return Task(content);
+	uint32_t id = j.at("id").get<uint32_t>();
+	return Task(content, id);
 }
 
 void SaveToJson(const std::vector<Task>& tasks, const std::string& filename)
@@ -77,7 +93,8 @@ void EditTask()
 	
 };
 void MarkAsCompleted() {};
-void QuitApplication(bool& appExited) 
+void QuitApplication(bool& appExited, std::vector<Task>& tasks) 
 {
+	SaveToJson(tasks, "tasks.json");
 	appExited = true;
 };

@@ -7,11 +7,15 @@
  void DisplayTasks(const std::vector<Task>& tasks)
 {
 	std::cout << "Your tasks:" << std::endl;
+	std::cout << "---------------------" << std::endl;
 	for (int i=0; i < tasks.size(); i ++)
 	{
 		std::string formattedTask = std::to_string(i + 1) + ". " + tasks[i].GetContent();
 		std::cout << formattedTask << std::endl;
+		std::cout << tasks[i].GetId() << std::endl;
 	}
+	std::cout << "---------------------" << std::endl;
+	std::cout << "" << std::endl;
 }
 
 
@@ -46,7 +50,7 @@
 			MarkAsCompleted();
 			break;
 		case 'e':
-			QuitApplication(appExited);
+			QuitApplication(appExited, tasks);
 			break;
 		default:
 			std::cout << "Input not recognized." << std::endl;
@@ -60,6 +64,7 @@ static void InitApp(std::vector<Task>& tasks, bool& appExited)
 	 std::cout << "Welcome! Enter your name: " << std::endl;
 	 std::getline(std::cin, name);
 	 std::cout << "Hi, " << name << ", welcome to your to-do list!" << std::endl;
+	 std::cout << "" << std::endl;
 	 DisplayTasks(tasks);
 	 while (!appExited)
 	 {
