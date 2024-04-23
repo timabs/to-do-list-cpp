@@ -16,5 +16,9 @@ public:
 
 void SaveToJson(const std::vector<Task>& tasks, const std::string& filename);
 void LoadFromJson(std::vector<Task>& tasks, const std::string& filename);
-
+Task AddTask();
+void DeleteTask();
+void EditTask();
+void MarkAsCompleted();
+void QuitApplication();
 #endif // TASK_HPP

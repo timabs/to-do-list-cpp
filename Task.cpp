@@ -61,3 +61,17 @@ void LoadFromJson(std::vector<Task>& tasks, const std::string& filename)
 		tasks.emplace_back(Task::FromJson(entry));
 	}
 }
+Task AddTask()
+{
+	std::cout << "Enter your task: " << std::endl;
+	std::string taskContent;
+	std::cin >> taskContent;
+	return Task(taskContent);
+}
+
+void EditTask()
+{
+	
+};
+void MarkAsCompleted() {};
+void QuitApplication() {};
