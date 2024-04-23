@@ -65,10 +65,13 @@ Task AddTask()
 {
 	std::cout << "Enter your task: " << std::endl;
 	std::string taskContent;
-	std::cin >> taskContent;
+	std::getline(std::cin, taskContent);
 	return Task(taskContent);
 }
+void DeleteTask()
+{
 
+}
 void EditTask()
 {
 	

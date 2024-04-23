@@ -2,18 +2,9 @@
 #include <vector>
 #include <iostream>
 
-static void InitApp(std::vector<Task>& tasks) {
-	std::string name;
-	std::cout << "Welcome! Enter your name: " << std::endl;
-	std::cin >> name;
-	std::cout << "Hi, " << name << ", welcome to your to-do list!" << std::endl;
-	DisplayTasks(tasks);
-	std::cout << "What do you want to do?" << std::endl;
-	std::cout << "(Enter one of letters a-e)" << std::endl;
-	PresentOptionsAndTakeInput(tasks);
-}
 
-static void DisplayTasks(const std::vector<Task>& tasks)
+
+ void DisplayTasks(const std::vector<Task>& tasks)
 {
 	std::cout << "Your tasks:" << std::endl;
 	for (int i=0; i < tasks.size(); i ++)
@@ -24,8 +15,10 @@ static void DisplayTasks(const std::vector<Task>& tasks)
 }
 
 
-static void PresentOptionsAndTakeInput(std::vector<Task>& tasks)
+ void PresentOptionsAndTakeInput(std::vector<Task>& tasks)
 {
+	std::cout << "What do you want to do?" << std::endl;
+	std::cout << "(Enter one of letters a-e)" << std::endl;
 	std::cout << "a. Add a task" << std::endl;
 	std::cout << "b. Remove a task" << std::endl;
 	std::cout << "c. Edit a task" << std::endl;
@@ -33,12 +26,14 @@ static void PresentOptionsAndTakeInput(std::vector<Task>& tasks)
 	std::cout << "e. Exit" << std::endl;
 	char i;
 	std::cin >> i;
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	switch (i)
 	{
-		case 'a': 
+		case 'a':
 		{
 			Task newTask = AddTask();
 			tasks.emplace_back(newTask);
+			DisplayTasks(tasks);
 			break;
 		}
 		case 'b':
@@ -59,13 +54,19 @@ static void PresentOptionsAndTakeInput(std::vector<Task>& tasks)
 
 	}
 }
-
+static void InitApp(std::vector<Task>& tasks) 
+{
+	 std::string name;
+	 std::cout << "Welcome! Enter your name: " << std::endl;
+	 std::getline(std::cin, name);
+	 std::cout << "Hi, " << name << ", welcome to your to-do list!" << std::endl;
+	 DisplayTasks(tasks);
+	 PresentOptionsAndTakeInput(tasks);
+ }
 
 int main()
 {
 	std::vector<Task> myTasks;
 	LoadFromJson(myTasks, "tasks.json");
 	InitApp(myTasks);
-	std::cin.get();
-	//SaveToJson(tasks, "tasks.json");
 }
