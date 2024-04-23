@@ -68,6 +68,7 @@ void SaveToJson(const std::vector<Task>& tasks, const std::string& filename)
 	o << j.dump(4); //Write to JSON with indentation of 4
 }
 
+
 void LoadFromJson(std::vector<Task>& tasks, const std::string& filename)
 {
 	std::ifstream i(filename);
@@ -90,6 +91,12 @@ void LoadFromJson(std::vector<Task>& tasks, const std::string& filename)
 		tasks.emplace_back(Task::FromJson(entry));
 	}
 }
+
+bool AreYouSure()
+{
+
+}
+
 Task AddTask()
 {
 	std::cout << "Enter your task: " << std::endl;
@@ -97,33 +104,40 @@ Task AddTask()
 	std::getline(std::cin, taskContent);
 	return Task(taskContent);
 }
-void DeleteTask()
-{
 
+int PromptForNumAndReturn(std::string& s)
+{
+	int selectionNum;
+	std::cout << "Which one?" << std::endl;
+	GetSingleInput(s);
+	try
+	{
+		selectionNum = std::stoi(s);
+		selectionNum--;
+		return selectionNum;
+	}
+	catch (const std::invalid_argument& e)
+	{
+		std::cout << "Invalid arg: " << e.what() << std::endl;
+	}
+	catch (const std::out_of_range& e)
+	{
+		std::cout << "Out of range: " << e.what() << std::endl;
+	}
+}
+void DeleteTask(std::vector<Task>& tasks)
+{
+	std::string s;
+	int selectionNum = PromptForNumAndReturn(s);
+	std::cout << "To Delete: " << tasks[selectionNum].GetContent() << std::endl;
+	std::cout << "Are you sure? Y/N" << std::endl;
 }
 void EditTask(std::vector<Task>& tasks)
 {
 	std::string s;
 	int selectionNum;
 	std::string newTaskContent;
-
-	auto PromptForNum = [](std::string& s){
-		std::cout << "Which one?" << std::endl;
-		GetSingleInput(s);
-	};
-	PromptForNum(s);
-	try{
-		selectionNum = std::stoi(s);
-		selectionNum--;
-	} catch (const std::invalid_argument&) {
-		std::cout << "Invalid argument: " << s << std::endl;
-		std::cout << "Try again" << std::endl;
-		PromptForNum(s);
-	} catch (const std::out_of_range&) {
-		std::cout << "Out of range: " << s << std::endl;
-		std::cout << "Try again" << std::endl;
-		PromptForNum(s);
-	}
+	selectionNum = PromptForNumAndReturn(s);
 	std::cout << "To Edit: " << tasks[selectionNum].GetContent() << std::endl;
 	std::cout << "Make your edit: ";
 	std::getline(std::cin, newTaskContent);

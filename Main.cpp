@@ -39,7 +39,7 @@
 			break;
 		}
 		case 'b':
-			DeleteTask();
+			DeleteTask(tasks);
 			break;
 		case 'c':
 			EditTask(tasks);
