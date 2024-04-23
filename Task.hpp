@@ -17,11 +17,13 @@ public:
 	static Task FromJson(const nlohmann::json& j);
 };
 
+void GetSingleInput(std::string& s);
+void GetSingleInput(char& i);
 void SaveToJson(const std::vector<Task>& tasks, const std::string& filename);
 void LoadFromJson(std::vector<Task>& tasks, const std::string& filename);
 Task AddTask();
 void DeleteTask();
-void EditTask();
+void EditTask(std::vector<Task>& tasks);
 void MarkAsCompleted();
 void QuitApplication(bool& appExited, std::vector<Task>& tasks);
 #endif // TASK_HPP

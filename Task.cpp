@@ -4,6 +4,19 @@
 #include <random>
 using Json = nlohmann::json;
 
+void GetSingleInput(std::string& s)
+{
+	std::cin >> s;
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+}
+
+void GetSingleInput(char& i)
+{
+	std::cin >> i;
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
 Task::Task(const std::string& content, uint32_t _id) : m_Content(content) 
 {
 
@@ -88,9 +101,35 @@ void DeleteTask()
 {
 
 }
-void EditTask()
+void EditTask(std::vector<Task>& tasks)
 {
-	
+	std::string s;
+	int selectionNum;
+	std::string newTaskContent;
+
+	auto PromptForNum = [](std::string& s){
+		std::cout << "Which one?" << std::endl;
+		GetSingleInput(s);
+	};
+	PromptForNum(s);
+	try{
+		selectionNum = std::stoi(s);
+		selectionNum--;
+	} catch (const std::invalid_argument&) {
+		std::cout << "Invalid argument: " << s << std::endl;
+		std::cout << "Try again" << std::endl;
+		PromptForNum(s);
+	} catch (const std::out_of_range&) {
+		std::cout << "Out of range: " << s << std::endl;
+		std::cout << "Try again" << std::endl;
+		PromptForNum(s);
+	}
+	std::cout << "To Edit: " << tasks[selectionNum].GetContent() << std::endl;
+	std::cout << "Make your edit: ";
+	std::getline(std::cin, newTaskContent);
+	tasks[selectionNum].SetContent(newTaskContent);
+	std::cout << "Edited task: " << tasks[selectionNum].GetContent() << std::endl;
+	std::cout << "\n" << std::endl;
 };
 void MarkAsCompleted() {};
 void QuitApplication(bool& appExited, std::vector<Task>& tasks) 

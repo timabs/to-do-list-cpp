@@ -12,7 +12,6 @@
 	{
 		std::string formattedTask = std::to_string(i + 1) + ". " + tasks[i].GetContent();
 		std::cout << formattedTask << std::endl;
-		std::cout << tasks[i].GetId() << std::endl;
 	}
 	std::cout << "---------------------" << std::endl;
 	std::cout << "" << std::endl;
@@ -29,8 +28,7 @@
 	std::cout << "d. Mark a task as completed" << std::endl;
 	std::cout << "e. Exit" << std::endl;
 	char i;
-	std::cin >> i;
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	GetSingleInput(i);
 	switch (i)
 	{
 		case 'a':
@@ -44,7 +42,7 @@
 			DeleteTask();
 			break;
 		case 'c':
-			EditTask();
+			EditTask(tasks);
 			break;
 		case 'd':
 			MarkAsCompleted();
